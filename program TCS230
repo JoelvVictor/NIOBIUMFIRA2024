@@ -1,0 +1,96 @@
+// TCS230 ou TCS3200 pinos conectados ao Arduino
+#define S0 4
+#define S1 5
+#define S2 6
+#define S3 7
+#define sensorOut 8
+
+// Armazena a frequência lida pelos fotodiodos
+int redFrequency = 0;
+int greenFrequency = 0;
+int blueFrequency = 0;
+
+// Armazena as cores vermelho, verde e azul
+int redColor = 0;
+int greenColor = 0;
+int blueColor = 0;
+
+void setup() {
+  // Configurando as saídas
+  pinMode(S0, OUTPUT);
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  
+  // Configurando o sensorOut como entrada
+  pinMode(sensorOut, INPUT);
+  
+  // Configurando a escala de frequência para 20%
+  digitalWrite(S0, HIGH);
+  digitalWrite(S1, LOW);
+  
+  // Inicia a comunicação serial
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Configurando os fotodiodos filtrados para VERMELHO (R) serem lidos
+  digitalWrite(S2, LOW);
+  digitalWrite(S3, LOW);
+  
+  // Lendo a frequência de saída
+  redFrequency = pulseIn(sensorOut, LOW);
+  // Remapeando o valor da frequência do VERMELHO (R) de 0 a 255
+  // Você deve substituir pelos seus próprios valores. Aqui está um exemplo: 
+  // redColor = map(redFrequency, 70, 120, 255, 0);
+  redColor = map(redFrequency, XX, XX, 255, 0);
+  
+  // Imprimindo o valor do VERMELHO (R)
+  Serial.print("R = ");
+  Serial.print(redColor);
+  delay(100);
+  
+  // Configurando os fotodiodos filtrados para VERDE (G) serem lidos
+  digitalWrite(S2, HIGH);
+  digitalWrite(S3, HIGH);
+  
+  // Lendo a frequência de saída
+  greenFrequency = pulseIn(sensorOut, LOW);
+  // Remapeando o valor da frequência do VERDE (G) de 0 a 255
+  // Você deve substituir pelos seus próprios valores. Aqui está um exemplo: 
+  // greenColor = map(greenFrequency, 100, 199, 255, 0);
+  greenColor = map(greenFrequency, XX, XX, 255, 0);
+  
+  // Imprimindo o valor do VERDE (G)  
+  Serial.print(" G = ");
+  Serial.print(greenColor);
+  delay(100);
+ 
+  // Configurando os fotodiodos filtrados para AZUL (B) serem lidos
+  digitalWrite(S2, LOW);
+  digitalWrite(S3, HIGH);
+  
+  // Lendo a frequência de saída
+  blueFrequency = pulseIn(sensorOut, LOW);
+  // Remapeando o valor da frequência do AZUL (B) de 0 a 255
+  // Você deve substituir pelos seus próprios valores. Aqui está um exemplo: 
+  // blueColor = map(blueFrequency, 38, 84, 255, 0);
+  blueColor = map(blueFrequency, XX, XX, 255, 0);
+  
+  // Imprimindo o valor do AZUL (B) 
+  Serial.print(" B = ");
+  Serial.print(blueColor);
+  delay(100);
+
+  // Verifica a cor detectada atualmente e imprime
+  // uma mensagem no monitor serial
+  if(redColor > greenColor && redColor > blueColor){
+      Serial.println(" - VERMELHO detectado!");
+  }
+  if(greenColor > redColor && greenColor > blueColor){
+    Serial.println(" - VERDE detectado!");
+  }
+  if(blueColor > redColor && blueColor > greenColor){
+    Serial.println(" - AZUL detectado!");
+  }
+}
