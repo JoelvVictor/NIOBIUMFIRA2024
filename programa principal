@@ -1,0 +1,103 @@
+#include <DC_motor_controller.h>
+#include <TwoMotors.h>
+// ****** SENSOR DE COR *******
+int S0 = 34;
+int S1 = 35;
+int S2 = 36;
+int S3 = 37;
+int OUTpin = 38;
+int red = 1;
+int green = 2;
+int blue = 3;
+
+// ***** MOTOR ESQUERDO *******
+int in1Esquerdo = 24;
+int in2Esquerdo = 25;
+int in3Esquerdo = 22;
+int in4Esquerdo = 23;
+int ENA_esquerdo = 12;
+int ENB_esquerdo = 13;
+// comunicação encoder
+int canalA_esquerdo_saidaA = 19;
+int canalB_esquerdo_saidaA = 31;
+int canalA_esquerdo_saidaB = 18;
+int canalB_esquerdo_saidaB = 30;
+
+// ****** MOTOR DIREITO ******
+int in1Direito = 28;
+int in2Direito = 29;
+int in3Direito = 26;
+int in4Direito = 27;
+int ENA_direito = 10;
+int ENB_direito = 11;
+// comunicação encoder
+int canalA_direito_saidaA = 21;
+int canalB_direito_saidaA = 33;
+int canalA_direito_saidaB = 20;
+int canalB_direito_saidaB = 32;
+
+DC_motor_controller motDireita_A, motDireita_B, motEsquerda_A, motEsquerda_B;
+// juntando os motores do lado direito e esquerdo
+TwoMotors motsDireita(motDireita_A, motDireita_B);
+TwoMotors motsEsquerda(motEsquerda_A, motEsquerda_B);
+
+// funções chamadas nos pinos interrupção
+void interrupt_motEsquerdaA() {
+  motEsquerda_A.isr();
+}
+void interrupt_motEsquerdaB() {
+  motEsquerda_B.isr();
+}
+void interrupt_motDireitaA() {
+  motDireita_A.isr();
+}
+void interrupt_motDireitaB() {
+  motDireita_B.isr();
+}
+// função para descobrir cor
+int getColor (int color) {
+  if color == 1{
+    digitalWrite(S2,LOW);
+    digitalWrite(S3,LOW);
+
+  }
+}
+
+
+void setup() {
+  // ************************************* MOTORES DA ESQUERDA *********************************************
+  // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
+  motEsquerda_B.hBridge(in3Esquerdo, in4Esquerdo, ENB_esquerdo); // saída B
+  motEsquerda_A.hBridge(in1Esquerdo, in2Esquerdo, ENA_esquerdo); // saída A
+  // pinos Encoder [canal A (interrupção), canal B]
+  motEsquerda_B.setEncoderPin(canalA_esquerdo_saidaB, canalB_esquerdo_saidaB); // saída B
+  motEsquerda_A.setEncoderPin(canalA_esquerdo_saidaA, canalB_esquerdo_saidaA); // saída A
+  // habilitar interrupções
+  attachInterrupt(digitalPinToInterrupt(canalA_esquerdo_saidaB), interrupt_motEsquerdaB, FALLING); // saída B
+  attachInterrupt(digitalPinToInterrupt(canalA_esquerdo_saidaA), interrupt_motEsquerdaA, FALLING); // saída A
+  // redução
+  motEsquerda_B.setRR(21.3); // saída B
+  motEsquerda_A.setRR(21.3); // saída A
+  // definição dos pinos como OUTPUT e INPUT
+  motEsquerda_B.setPins();
+  motEsquerda_A.setPins();
+
+  // ************************************* MOTORES DA DIREITA *********************************************
+  // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
+  motDireita_B.hBridge(in3Direito, in4Direito, ENB_direito); // saída B
+  motDireita_A.hBridge(in1Direito, in2Direito, ENA_direito); // saída A
+  // pinos Encoder [canal A (interrupção), canal B]
+  motDireita_B.setEncoderPin(canalA_direito_saidaB, canalB_direito_saidaB); // saída B
+  motDireita_A.setEncoderPin(canalA_direito_saidaA, canalB_direito_saidaA); // saída A
+  // habilitar interrupções
+  attachInterrupt(digitalPinToInterrupt(canalA_direito_saidaB), interrupt_motDireitaB, FALLING); // saída B
+  attachInterrupt(digitalPinToInterrupt(canalA_direito_saidaA), interrupt_motDireitaA, FALLING); // saída A
+  // redução
+  motDireita_B.setRR(21.3); // saída B
+  motDireita_A.setRR(21.3); // saída A
+  // definição dos pinos como OUTPUT e INPUT
+  motDireita_B.setPins();
+  motDireita_A.setPins();
+}
+
+
