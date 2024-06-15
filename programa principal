@@ -1,16 +1,9 @@
 #include <DC_motor_controller.h>
 #include <TwoMotors.h>
 // ****** SENSOR DE COR *******
-int S0 = 34;
-int S1 = 35;
-int S2 = 36;
-int S3 = 37;
-int OUTpin = 38;
-int red = 1;
-int green = 2;
-int blue = 3;
 
-// ***** MOTOR ESQUERDO *******
+
+// ***** MOTOR ESQUERDO pinout *******
 int in1Esquerdo = 24;
 int in2Esquerdo = 25;
 int in3Esquerdo = 22;
@@ -23,7 +16,7 @@ int canalB_esquerdo_saidaA = 31;
 int canalA_esquerdo_saidaB = 18;
 int canalB_esquerdo_saidaB = 30;
 
-// ****** MOTOR DIREITO ******
+// ****** MOTOR DIREITO pinout ******
 int in1Direito = 28;
 int in2Direito = 29;
 int in3Direito = 26;
