@@ -1,0 +1,28 @@
+int S0 = 34;
+int S1 = 35;
+int S2 = 36;
+int S3 = 37;
+int OUTpin = 38;
+int redcolor = 0;
+int bluecolor = 0;
+int greencolor = 0;
+int redFrequency = 0;
+int blueFrequency = 0;
+int greenFrequency = 0;
+void gecolor() {
+  digitalWrite(S2, LOW);
+  digitalWrite(S3, LOW);
+  redFrequency = pulseIn(OUTpin);
+  digitalWrite(S2, HIGH);
+  digitalWrite(S3, HIGH);
+  greenFrequency = pulseIn(OUTpin);
+  digitalWrite(S2, LOW);
+  digitalWrite(S3, HIGH);
+  blueFrequency = pulseIn(OUTpin);
+
+  greencolor = map(greenFrequency)
+}
+void getcolor() {
+  redcolor = map(redFrequency, 70, 120, 255, 0);
+  green
+}
