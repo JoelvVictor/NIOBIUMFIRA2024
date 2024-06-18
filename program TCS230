@@ -94,3 +94,72 @@ void loop() {
     Serial.println(" - AZUL detectado!");
   }
 }
+
+int PINO_SENSOR_S0 = 2; 
+int PINO_SENSOR_S1 = 3;
+int PINO_SENSOR_S2 = 4;
+int PINO_SENSOR_S3 = 5;
+int PINO_SENSOR_OUT = 6;
+
+int azul;
+int vermelho;
+int verde;
+
+
+
+void setup(){
+  pinMode (PINO_SENSOR_S0,OUTPUT);
+  pinMode (PINO_SENSOR_S1,OUTPUT);
+  pinMode (PINO_SENSOR_S2,OUTPUT);
+  pinMode (PINO_SENSOR_S3,OUTPUT);
+  pinMode (PINO_SENSOR_OUT,INPUT);
+  digitalWrite(PINO_SENSOR_S0,HIGH);
+  digitalWrite(PINO_SENSOR_S1,LOW);
+  Serial.begin(9600);
+}
+
+void loop(){
+  leitura_cores();
+  int cor_principal;
+  if (azul < vermelho && azul < verde) {
+    Serial.println("azul");
+  }
+  else if (verde < vermelho && verde < azul) {
+    Serial.println("verde");
+  }
+  else if (vermelho < azul && vermelho < verde) {
+    Serial.println("vermelho");
+  }
+  Serial.print("vermelho: " + String(vermelho));
+  Serial.print(" verde: " + String(verde));
+  Serial.print(" azul: " + String(azul));
+  Serial.println()
+}
+  
+
+void leitura_cores(){
+  digitalWrite (PINO_SENSOR_S2,LOW);
+  digitalWrite(PINO_SENSOR_S3,LOW);
+ if(digitalRead(PINO_SENSOR_OUT) == HIGH){ // Verifica o nivel logico no pino OUT do sensor
+    vermelho = pulseIn(PINO_SENSOR_OUT, LOW); // Le duracao do pulso na saida
+  } else {
+    vermelho = pulseIn(PINO_SENSOR_OUT, HIGH); // Le duracao do pulso na saida
+  }
+    
+  digitalWrite(PINO_SENSOR_S3, HIGH); // PINO S3 em nivel alto
+
+  if(digitalRead(PINO_SENSOR_OUT) == HIGH){ // Verifica o nivel logico no pino OUT do sensor
+    azul = pulseIn(PINO_SENSOR_OUT, LOW); // Le duracao do pulso na saida
+  } else {
+    azul = pulseIn(PINO_SENSOR_OUT, HIGH); // Le duracao do pulso na saida
+  }
+    
+  digitalWrite(PINO_SENSOR_S2, HIGH); // Pino S2 em nivel alto
+
+  if(digitalRead(PINO_SENSOR_OUT) == HIGH){ // Verifica o nivel logico no pino OUT do sensor
+    verde = pulseIn(PINO_SENSOR_OUT, LOW); // Le duracao do pulso na saida
+  } else {
+    verde = pulseIn(PINO_SENSOR_OUT, HIGH); // Le duracao do pulso na saida
+  }
+  
+}
