@@ -47,14 +47,7 @@ void interrupt_motDireitaA() {
 void interrupt_motDireitaB() {
   motDireita_B.isr();
 }
-// função para descobrir cor
-int getColor (int color) {
-  if color == 1{
-    digitalWrite(S2,LOW);
-    digitalWrite(S3,LOW);
 
-  }
-}
 
 
 void setup() {
@@ -92,5 +85,6 @@ void setup() {
   motDireita_B.setPins();
   motDireita_A.setPins();
 }
+void loop(){
 
-
+}
