@@ -1,0 +1,16 @@
+IRpin = 45;
+
+void setup() {
+  pinMode(IRpin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (IRpin == HIGH) {
+    Serial.println("Cor preta detectada");
+  }
+  else {
+    Serial.println("Cor branca detectada");
+  }
+
+}
