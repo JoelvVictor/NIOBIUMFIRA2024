@@ -12,17 +12,23 @@ int greenFrequency = 0;
 void gecolor() {
   digitalWrite(S2, LOW);
   digitalWrite(S3, LOW);
-  redFrequency = pulseIn(OUTpin);
+  redFrequency = pulseIn(OUTpin, LOW);
   digitalWrite(S2, HIGH);
   digitalWrite(S3, HIGH);
-  greenFrequency = pulseIn(OUTpin);
+  greenFrequency = pulseIn(OUTpin, LOW);
   digitalWrite(S2, LOW);
   digitalWrite(S3, HIGH);
-  blueFrequency = pulseIn(OUTpin);
-
-  greencolor = map(greenFrequency)
+  blueFrequency = pulseIn(OUTpin, LOW);
 }
-void getcolor() {
-  redcolor = map(redFrequency, 70, 120, 255, 0);
-  green
+void setup() {
+  pinMode(S0, OUTPUT);
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  pinMode(OUTpin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  
 }
