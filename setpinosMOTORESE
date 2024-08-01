@@ -1,18 +1,24 @@
-void setupMotoresE() {
-    // ************************************* MOTORES DA ESQUERDA *********************************************
+// ***** MOTOR ESQUERDO pinout *******
+int in1Esquerdo = 24;
+int in2Esquerdo = 25;
+int in3Esquerdo = 22;
+int in4Esquerdo = 23;
+int ENA_esquerdo = 12;
+int ENB_esquerdo = 13;
+// comunicação encoder
+int canalA_esquerdo = 19;
+int canalB_esquerdo = 31;
+
+void setmotE() {
+  // ************************************* MOTORES DA ESQUERDA *********************************************
   // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
-  motEsquerda_B.hBridge(in3Esquerdo, in4Esquerdo, ENB_esquerdo); // saída B
-  motEsquerda_A.hBridge(in1Esquerdo, in2Esquerdo, ENA_esquerdo); // saída A
+  motEsquerda.hBridge(in1Esquerdo, in2Esquerdo, ENA_esquerdo); // saída A
   // pinos Encoder [canal A (interrupção), canal B]
-  motEsquerda_B.setEncoderPin(canalA_esquerdo_saidaB, canalB_esquerdo_saidaB); // saída B
-  motEsquerda_A.setEncoderPin(canalA_esquerdo_saidaA, canalB_esquerdo_saidaA); // saída A
+  motEsquerda.setEncoderPin(canalA_esquerdo, canalB_esquerdo); // saída A
   // habilitar interrupções
-  attachInterrupt(digitalPinToInterrupt(canalA_esquerdo_saidaB), interrupt_motEsquerdaB, FALLING); // saída B
-  attachInterrupt(digitalPinToInterrupt(canalA_esquerdo_saidaA), interrupt_motEsquerdaA, FALLING); // saída A
+  attachInterrupt(digitalPinToInterrupt(canalA_esquerdo), interrupt_motEsquerda, FALLING); // saída A
   // redução
-  motEsquerda_B.setRR(21.3); // saída B
-  motEsquerda_A.setRR(21.3); // saída A
+  motEsquerda.setRR(21.3); // saída A
   // definição dos pinos como OUTPUT e INPUT
-  motEsquerda_B.setPins();
-  motEsquerda_A.setPins();
+  motEsquerda.setPins();
 }
