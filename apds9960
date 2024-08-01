@@ -1,13 +1,7 @@
 // função para definir as variaveis e iniciar os sensores
 void initapds() {
-  uint16_t ambiente = 0;
-  uint16_t vermelho = 0;
-  uint16_t verde = 0;
-  uint16_t azul = 0;
   apds.init();
-  apds.enableLightSensor();
-}
-
+  apds.enableLightSensor(); }
 // função para ler as cores e verificar se há erros
 void apdsexecute() {
   apds.readAmbientLight(ambiente);
