@@ -1,0 +1,29 @@
+// função para definir as variaveis e iniciar os sensores
+void initapds() {
+  uint16_t luz_ambiente;
+  uint16_t vermelho;
+  uint16_t verde;
+  uint16_t azul;
+  apds.init();
+  apds.enableLightSensor();
+}
+
+// função para ler as cores e verificar se há erros
+void apdsexecute() {
+  if ( !apds.readAmbientLight(luz_ambiente) ||
+      !apds.readRedLight(vermelho) ||
+      !apds.readGreenLight(verde) ||
+      !apds.readBlueLight(azul) ) {
+    Serial.println("Erro ao ler os valores de luminosidade");
+  } 
+  else {
+    Serial.print("Ambiente: ");
+    Serial.print(luz_ambiente);
+    Serial.print(" Vermelho: ");
+    Serial.print(vermelho);
+    Serial.print(" Verde: ");
+    Serial.print(verde);
+    Serial.print(" Azul: ");
+    Serial.println(azul);
+  }
+}
