@@ -1,21 +1,39 @@
+/*
+  Autor: Joel Victor, 12/06/24
+  1. Código de arduino exclusivo ao robô da equipe Niobium, utilizado na FIRA 2024
+  2. Código para arduíno Nano
+*/
+#include <Wire.h>
 #include <DC_motor_controller.h>
-// ****** SENSOR DE COR *******
-
+#include <SparkFun_APDS9960.h>
 
 DC_motor_controller motDireita, motEsquerda;
+SparkFun_APDS9960 apds = SparkFun_APDS9960();
+
+// variaveis do apds9960
+uint16_t ambiente = 0;
+uint16_t vermelho = 0;
+uint16_t verde = 0;
+uint16_t azul = 0;
 
 // funções chamadas nos pinos interrupção
 void interrupt_motEsquerda() {
-  motEsquerda.isr();
-}
+  motEsquerda.isr(); }
 void interrupt_motDireita() {
-  motDireita.isr();
-}
+  motDireita.isr(); }
 
 void setup() {
+  Serial.begin(9600);
   setmotD();
   setmotE();
+  initapds();
 }
-void loop(){
 
+void loop(){
+  for (int i = 0; i <4; i++) {
+    motEsquerda.walk(255, 3);
+    motDireita.walk(255, 3);
+    delay(5000);
+    motEsquerda.stop(2000);
+  }
 }
