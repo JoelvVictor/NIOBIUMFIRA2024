@@ -1,16 +1,14 @@
-// ***** MOTOR ESQUERDO pinout *******
-int in1Esquerdo = 24;
-int in2Esquerdo = 25;
-int in3Esquerdo = 22;
-int in4Esquerdo = 23;
-int ENA_esquerdo = 12;
-int ENB_esquerdo = 13;
+// MOTOR ESQUERDO pinout
+int in1Esquerdo = 5;
+int in2Esquerdo = 6;
+int ENA_esquerdo = 0;
+int ENB_esquerdo = 0;
 // comunicação encoder
-int canalA_esquerdo = 19;
-int canalB_esquerdo = 31;
+int canalA_esquerdo = 2;
+int canalB_esquerdo = 4;
 
+// função para definir os pinos do motor esquerdo
 void setmotE() {
-  // ************************************* MOTORES DA ESQUERDA *********************************************
   // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
   motEsquerda.hBridge(in1Esquerdo, in2Esquerdo, ENA_esquerdo); // saída A
   // pinos Encoder [canal A (interrupção), canal B]
