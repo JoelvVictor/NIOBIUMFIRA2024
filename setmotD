@@ -1,16 +1,14 @@
-// ****** MOTOR DIREITO pinout ******
-int in1Direito = 28;
-int in2Direito = 29;
-int in3Direito = 26;
-int in4Direito = 27;
-int ENA_direito = 10;
-int ENB_direito = 11;
+// MOTOR DIREITO pinout
+int in1Direito = 9;
+int in2Direito = 10;
+int ENA_direito = 0;
+int ENB_direito = 0;
 // comunicação encoder
-int canalA_direito = 21;
-int canalB_direito = 33;
+int canalA_direito = 3;
+int canalB_direito = 7;
 
+// função para definir os pinos do motor direito
 void setmotD() {
-   // ************************************* MOTORES DA DIREITA *********************************************
   // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
   motDireita.hBridge(in1Direito, in2Direito, ENA_direito);
   // pinos Encoder [canal A (interrupção), canal B]
