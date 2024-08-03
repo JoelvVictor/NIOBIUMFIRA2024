@@ -4,17 +4,17 @@ void initapds() {
   apds.enableLightSensor(); }
 // função para ler as cores e verificar se há erros
 void apdsexecute() {
-  apds.readAmbientLight(ambiente);
-  apds.readRedLight(vermelho);
-  apds.readGreenLight(verde);
-  apds.readBlueLight(azul);
+  apds.readAmbientLight(l);
+  apds.readRedLight(r);
+  apds.readGreenLight(g);
+  apds.readBlueLight(b);
   
   Serial.print("Ambiente: ");
-  Serial.print(ambiente);
+  Serial.print(l);
   Serial.print(" Vermelho: ");
-  Serial.print(vermelho);
+  Serial.print(r);
   Serial.print(" Verde: ");
-  Serial.print(verde);
+  Serial.print(g);
   Serial.print(" Azul: ");
-  Serial.println(azul);
+  Serial.println(b);
 }
