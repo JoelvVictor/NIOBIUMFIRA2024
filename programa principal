@@ -7,14 +7,15 @@
 #include <DC_motor_controller.h>
 #include <SparkFun_APDS9960.h>
 
+bool achou_farmacia = false;
+bool procurando_farmacia = true;
+bool achou_borda = false;
+
 DC_motor_controller motDireita, motEsquerda;
 SparkFun_APDS9960 apds = SparkFun_APDS9960();
 
 // variaveis do apds9960
-uint16_t ambiente = 0;
-uint16_t vermelho = 0;
-uint16_t verde = 0;
-uint16_t azul = 0;
+uint16_t l, r, g, b;
 
 // funções chamadas nos pinos interrupção
 void interrupt_motEsquerda() {
@@ -30,10 +31,7 @@ void setup() {
 }
 
 void loop(){
-  for (int i = 0; i <4; i++) {
-    motEsquerda.walk(255, 3);
-    motDireita.walk(255, 3);
-    delay(5000);
-    motEsquerda.stop(2000);
-  }
+  motEsquerda.walk(0);
+  motDireita.walk(100, 2.7);
+  delay(1000);
 }
