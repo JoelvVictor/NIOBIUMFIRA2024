@@ -1,0 +1,50 @@
+
+// MOTOR EsquerdO pinout
+int in1Esquerdo = 9;
+int in2Esquerdo = 10;
+int ENA_Esquerdo = 9;
+// comunicação encoder
+int canalA_Esquerdo = 3;
+int canalB_Esquerdo = 7;
+
+// função para definir os pinos do motor Esquerdo
+void setmotE() {
+  motEsquerda.setPIDconstants(1, 1.7, 0.05);
+  motDireita.setPIDconstants(0.5, 0.5, 0.1);
+  // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
+  motEsquerda.hBridge(in1Esquerdo, in2Esquerdo, ENA_Esquerdo);
+  motEsquerda.invertDirection();
+  motEsquerda.debugMaxVel();
+  // pinos Encoder [canal A (interrupção), canal B]
+  motEsquerda.setEncoderPin(canalA_Esquerdo, canalB_Esquerdo);
+  // habilitar interrupções
+  attachInterrupt(digitalPinToInterrupt(canalA_Esquerdo), interrupt_motEsquerda, FALLING);
+  // redução
+  motEsquerda.setRR(78);
+  // definição dos pinos como OUTPUT e INPUT
+  motEsquerda.setPins();
+}
+
+
+// MOTOR DireitO pinout
+int in1Direito = 5;
+int in2Direito = 6;
+int ENA_Direito = 5;
+// comunicação encoder
+int canalA_Direito = 2;
+int canalB_Direito = 4;
+
+// função para definir os pinos do motor Direito
+void setmotD() {
+  // pinos da ponte H (IN1-3, IN2-4, ENB-ENA)
+  motDireita.hBridge(in1Direito, in2Direito, ENA_Direito); // saída A
+  motDireita.debugMaxVel();
+  // pinos Encoder [canal A (interrupção), canal B]
+  motDireita.setEncoderPin(canalA_Direito, canalB_Direito); // saída A
+  // habilitar interrupções
+  attachInterrupt(digitalPinToInterrupt(canalA_Direito), interrupt_motDireita, FALLING); // saída A
+  // redução
+  motDireita.setRR(78); // saída A
+  // definição dos pinos como OUTPUT e INPUT
+  motDireita.setPins();
+}
